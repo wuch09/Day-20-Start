@@ -30,9 +30,10 @@ while move_on:
     move_on = my_snake.move()
     if my_snake.head.distance(food_dot) < 15:
         food_dot.new_food()
-        pen.score += 1
+        my_snake.add_element_to_tail()
+        pen.increase_score()
         pen.update_score()
     screen.update()
     time.sleep(0.2)
-
+pen.game_over()
 screen.exitonclick()
