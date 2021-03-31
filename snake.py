@@ -1,13 +1,13 @@
-from turtle import Turtle, Screen
-#from main import colors
+from turtle import Turtle
 import random
 
-element_colors = ["red","green","blue", "pink","orange", "Dark Red", "AliceBlue","cyan","brown", "azure"]
+element_colors = ["red", "green", "blue", "pink", "orange", "Dark Red", "AliceBlue", "cyan", "brown", "azure"]
 MOVE_DISTANCE = 20
 UP = 90
 DOWN = 270
 LEFT = 180
 RIGHT = 0
+
 
 class Snake:
     def __init__(self):
@@ -32,36 +32,20 @@ class Snake:
         return abs(self.head_position()[0]) >= 280 or abs(self.head_position()[1]) >= 280
 
     def hit_tail(self):
-        #print(f"self.length ={self.length}")
+        # print(f"self.length ={self.length}")
         hit = False
         for index in range(1, self.length):
-            #print(f" index{index} distance: {self.head.distance(self.snake_list[index])}")
+            # print(f" index{index} distance: {self.head.distance(self.snake_list[index])}")
             if self.head.distance(self.snake_list[index]) < 15:
                 hit = True
         return hit
 
-
     def move(self):
-        good_move = True
         for index in range(self.length - 1, 0, -1):
             self.snake_list[index].goto(self.snake_list[index - 1].position())
         self.head.forward(MOVE_DISTANCE)
-        # if self.hit_tail() or self.hit_wall():
-        #     good_move = False
-
-        # for index in range(1, self.length):
-        #     print(f" index{index} distance: {self.head.distance(self.snake_list[index])}")
-        #     if self.head.distance(self.snake_list[index]) < 15:
-        #         good_move = False
-
         if self.hit_tail() or self.hit_wall():
-            good_move = False
-
-        # for index in range(1, self.length):
-        #     if self.head.distance(self.snake_list[index]) < 15:
-        #         good_move = False
-        # if abs(self.head_position()[0]) >= 280 or abs(self.head_position()[1]) >= 280:
-        #     good_move = False
+            return False
         else:
             return True
 
@@ -74,7 +58,6 @@ class Snake:
         length = len(self.snake_list)
         new_element.goto(self.snake_list[length-1].position())
         self.snake_list.append(new_element)
-
 
     def move_left(self):
         if self.head.heading() != RIGHT:
