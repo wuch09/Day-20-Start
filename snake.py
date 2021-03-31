@@ -34,9 +34,11 @@ class Snake:
     def hit_tail(self):
         # print(f"self.length ={self.length}")
         hit = False
-        for index in range(1, self.length):
+        for element in self.snake_list:
+            if element == self.head:
+                pass
             # print(f" index{index} distance: {self.head.distance(self.snake_list[index])}")
-            if self.head.distance(self.snake_list[index]) < 15:
+            elif self.head.distance(element) < 15:
                 hit = True
         return hit
 
