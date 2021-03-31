@@ -28,32 +28,44 @@ class Snake:
     def head_position(self):
         return self.head.position()
 
-    def is_hit_food(self, loc):
-        if self.head_position() == loc:
-            return True
-        else:
-            return False
+    def hit_wall(self):
+        return abs(self.head_position()[0]) >= 280 or abs(self.head_position()[1]) >= 280
+
+    def hit_tail(self):
+        #print(f"self.length ={self.length}")
+        hit = False
+        for index in range(1, self.length):
+            #print(f" index{index} distance: {self.head.distance(self.snake_list[index])}")
+            if self.head.distance(self.snake_list[index]) < 15:
+                hit = True
+        return hit
+
 
     def move(self):
-
         good_move = True
-
-        for index in range(self.length-1, 0, -1):
-            self.snake_list[index].goto(self.snake_list[index-1].position())
+        for index in range(self.length - 1, 0, -1):
+            self.snake_list[index].goto(self.snake_list[index - 1].position())
         self.head.forward(MOVE_DISTANCE)
+        # if self.hit_tail() or self.hit_wall():
+        #     good_move = False
 
-        for index in range(1, self.length):
-            if self.head.distance(self.snake_list[index]) < 15:
-                good_move = False
+        # for index in range(1, self.length):
+        #     print(f" index{index} distance: {self.head.distance(self.snake_list[index])}")
+        #     if self.head.distance(self.snake_list[index]) < 15:
+        #         good_move = False
 
-        if abs(self.head_position()[0]) >= 280 or abs(self.head_position()[1]) >= 280:
+        if self.hit_tail() or self.hit_wall():
             good_move = False
 
-        return good_move
-
+        # for index in range(1, self.length):
+        #     if self.head.distance(self.snake_list[index]) < 15:
+        #         good_move = False
+        # if abs(self.head_position()[0]) >= 280 or abs(self.head_position()[1]) >= 280:
+        #     good_move = False
+        else:
+            return True
 
     def add_element_to_tail(self):
-        print("add_element")
         self.length += 1
         new_element = Turtle("square")
         new_element.color(random.choice(element_colors))
