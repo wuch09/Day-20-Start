@@ -10,7 +10,7 @@ screen.bgcolor("black")
 screen.title("my snake game")
 screen.tracer(0)
 
-colors = ["red","green","blue", "pink","orange", "Dark Red", "AliceBlue","cyan","brown", "azure"]
+colors = ["red", "green", "blue", "pink", "orange", "Dark Red", "AliceBlue", "cyan", "brown", "azure"]
 
 my_snake = Snake()
 screen.listen()
@@ -26,20 +26,13 @@ pen = Pen()
 score = 0
 
 while move_on:
-    pen.update_score(score)
+    pen.update_score()
     move_on = my_snake.move()
     if my_snake.head.distance(food_dot) < 15:
         food_dot.new_food()
-        score += 1
-        pen.update_score(score)
+        pen.score += 1
+        pen.update_score()
     screen.update()
     time.sleep(0.2)
 
 screen.exitonclick()
-
-
-
-
-
-
-
