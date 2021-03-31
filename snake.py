@@ -35,19 +35,26 @@ class Snake:
             return False
 
     def move(self):
-        edge = True
+
+        good_move = True
+
         for index in range(self.length-1, 0, -1):
             self.snake_list[index].goto(self.snake_list[index-1].position())
         self.head.forward(MOVE_DISTANCE)
-        if abs(self.head_position()[0]) >= 280 or abs(self.head_position()[1]) >= 280:
-            edge = False
 
-        return edge
+        for index in range(1, self.length):
+            if self.head.distance(self.snake_list[index]) < 15:
+                good_move = False
+
+        if abs(self.head_position()[0]) >= 280 or abs(self.head_position()[1]) >= 280:
+            good_move = False
+
+        return good_move
 
 
     def add_element_to_tail(self):
         print("add_element")
-        self.length +=1
+        self.length += 1
         new_element = Turtle("square")
         new_element.color(random.choice(element_colors))
         new_element.penup()
@@ -55,7 +62,7 @@ class Snake:
         length = len(self.snake_list)
         new_element.goto(self.snake_list[length-1].position())
         self.snake_list.append(new_element)
-        print(self.snake_list)
+
 
     def move_left(self):
         if self.head.heading() != RIGHT:
