@@ -38,7 +38,7 @@ class Snake:
             if element == self.head:
                 pass
             # print(f" index{index} distance: {self.head.distance(self.snake_list[index])}")
-            elif self.head.distance(element) < 15:
+            elif self.head.distance(element) < 10:
                 hit = True
         return hit
 
